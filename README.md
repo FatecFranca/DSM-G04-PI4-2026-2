@@ -1,8 +1,6 @@
 # Links importantes:
 Protótipo navegável: https://app.visily.ai/projects/30959664-464e-4b80-919c-d7aaebc82af5/boards/2614161
 
-Video do Youtube: https://youtu.be/g_TIElJns7g
-
 # SafeBite Frontend
 
 Frontend da aplicação SafeBite — plataforma de receitas com foco em restrições alimentares.
