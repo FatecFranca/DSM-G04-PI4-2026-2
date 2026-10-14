@@ -130,4 +130,4 @@ Páginas autenticadas usam:
 ---
 
 **SafeBite Team**
-Alunos: Amanda Cristina Olegário, Gabriel Sanches Martins, Lauana dos Santos, Luis Eduardo Campos.
+Alunos: Amanda Cristina Olegário, Gabriel Sanches Martins, Lauana dos Santos, Pyetro Andrade Morgan.
