@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeBite | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="cabecalho">
+      <div>
+        <span class="marca">● SafeBite</span>
+        <h1>Dashboard alimentar</h1>
+        <p>Acompanhamento de consumo e análise estatística.</p>
+      </div>
+      <button id="exportar" class="botao">Exportar dados</button>
+    </header>
+
+    <section class="painel filtros" aria-label="Filtros">
+      <label>Alimento
+        <select id="alimento">
+          <option value="Todos">Todos</option>
+          <option>Arroz</option>
+          <option>Frango</option>
+          <option>Ovo</option>
+        </select>
+      </label>
+
+      <label>Data inicial
+        <input id="inicio" type="date">
+      </label>
+
+      <label>Data final
+        <input id="fim" type="date">
+      </label>
+
+      <label>Meta diária (kcal)
+        <input id="meta" type="number" min="1" value="2000">
+      </label>
+
+      <button id="filtrar" class="botao">Atualizar</button>
+    </section>
+
+    <section class="indicadores" aria-label="Indicadores">
+      <article class="painel indicador">
+        <span>Registros</span>
+        <strong id="total-pratos">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Calorias totais</span>
+        <strong id="total-kcal">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Média por prato</span>
+        <strong id="media-kcal">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Desvio padrão</span>
+        <strong id="desvio-kcal">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Alarmes (>300 kcal)</span>
+        <strong id="alarmes">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Percentual de alarmes</span>
+        <strong id="percent-alarmes">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Temperatura média</span>
+        <strong id="temperatura">—</strong>
+      </article>
+
+      <article class="painel indicador">
+        <span>Umidade média</span>
+        <strong id="umidade">—</strong>
+      </article>
+    </section>
+
+    <section class="grade">
+      <article class="painel grafico">
+        <h2>Consumo por dia</h2>
+        <p>Calorias acumuladas e meta diária</p>
+        <canvas id="grafico-diario"></canvas>
+      </article>
+
+      <article class="painel grafico">
+        <h2>Porcentagem por alimento</h2>
+        <p>Participação nas calorias</p>
+        <div id="participacao"></div>
+      </article>
+
+      <article class="painel grafico">
+        <h2>Distribuição normal</h2>
+        <p>Histograma e curva teórica</p>
+        <canvas id="grafico-normal"></canvas>
+      </article>
+
+      <article class="painel grafico">
+        <h2>Correlação e regressão</h2>
+        <p>Peso (g) × calorias (kcal)</p>
+        <canvas id="grafico-regressao"></canvas>
+        <p id="resultado-regressao" class="resultado">—</p>
+      </article>
+    </section>
+
+    <section class="painel tabela-painel">
+      <h2>Registros recentes</h2>
+      <p id="resumo-meta">—</p>
+
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Alimento</th>
+              <th>Peso</th>
+              <th>Calorias</th>
+              <th>Alarme</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-registros"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      SafeBite • Dashboard desenvolvido com HTML, CSS e JavaScript
+    </footer>
+  </main>
+
+  <script src="js/dados.js"></script>
+</body>
+</html>
