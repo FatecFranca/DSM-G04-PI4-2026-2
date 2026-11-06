@@ -18,6 +18,7 @@ const ROUTES = {
 
   app: {
     home: 'home.html',
+    dashboard: 'dashboard.html',
     instrucoes: 'instrucoes.html',
     receitas: 'receitas.html',
     receitaDetalhe: 'receita-detalhe.html',

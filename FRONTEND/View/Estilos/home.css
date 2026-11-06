@@ -116,3 +116,25 @@
   .home-cards-grid { grid-template-columns: 1fr; }
   .home-card-destaque { grid-column: 1; }
 }
+
+.card-dashboard {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #b9e5d1;
+  background: linear-gradient(135deg, #ffffff, #effaf4);
+  cursor: pointer;
+}
+
+.card-dashboard:hover {
+  border-color: #15966a;
+  transform: translateY(-3px);
+}
+
+.card-dashboard-link {
+  color: #15966a;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: auto;
+}

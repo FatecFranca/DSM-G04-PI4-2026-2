@@ -7,6 +7,7 @@ const SafeBiteLayout = {
     const to = (path) => window.ROUTES?.url?.(path) || path;
     return [
       { id: 'inicio', href: to(r.home || 'home.html'), label: 'Início' },
+      { id: 'dashboard', href: to(r.dashboard || 'dashboard.html'), label: 'Dashboard' },
       { id: 'instrucoes', href: to(r.instrucoes || 'instrucoes.html'), label: 'Instruções' },
       { id: 'receitas', href: to(r.receitas || 'receitas.html'), label: 'Receitas' },
       { id: 'publicacoes', href: to(r.publicacoes || 'publicacoes.html'), label: 'Publicações' },

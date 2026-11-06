@@ -1,0 +1,41 @@
+
+name: SafeBite CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - feat/dashboard-safebite
+
+  pull_request:
+
+jobs:
+  testes:
+    name: Validacao SafeBite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verificar arquivos JavaScript
+        run: |
+          node --check FRONTEND/View/Dashboard/js/dados.js
+          node --check FRONTEND/View/Dashboard/js/app.js
+          node --check FRONTEND/View/Dashboard/js/embed.js
+
+      - name: Executar testes SafeBite
+        run: node --test FRONTEND/tests/safebite.test.cjs
+
+      - name: Gerar artefato do frontend
+        uses: actions/upload-artifact@v4
+        with:
+          name: safebite-frontend
+          path: FRONTEND/View/
+          if-no-files-found: error
