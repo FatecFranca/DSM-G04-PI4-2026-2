@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SafeBite - Dashboard</title>
+
+  <link rel="stylesheet" href="../Estilos/app-shell.css">
+  <link rel="stylesheet" href="../Estilos/dashboard.css">
+</head>
+
+<body data-active-nav="dashboard" data-asset-base="../">
+
+  <div id="app-shell"></div>
+
+  <main class="dashboard-pagina">
+    <iframe
+      title="Dashboard alimentar SafeBite"
+      src="../Dashboard/index.html?embed=1"
+      id="safebite-frame">
+    </iframe>
+  </main>
+
+  <script src="../Script/config.js"></script>
+  <script src="../Script/routes.js"></script>
+  <script src="../Script/api.service.js"></script>
+  <script src="../Script/utils.js"></script>
+  <script src="../Script/components/auth-guard.js"></script>
+  <script src="../Script/components/layout.js"></script>
+
+</body>
+</html>
