@@ -1,0 +1,47 @@
+
+name: SafeBite CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - feat/dashboard-safebite
+
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Identificar raiz do site
+        run: |
+          if [ -d View/Dashboard ]; then
+            echo "SITE_ROOT=View" >> "$GITHUB_ENV"
+          else
+            echo "SITE_ROOT=." >> "$GITHUB_ENV"
+          fi
+
+      - name: Verificar JavaScript
+        run: |
+          node --check "$SITE_ROOT/Dashboard/js/dados.js"
+          node --check "$SITE_ROOT/Dashboard/js/app.js"
+          node --check "$SITE_ROOT/Dashboard/js/embed.js"
+
+      - name: Executar testes
+        run: node --test "$SITE_ROOT/tests/safebite.test.cjs"
+
+      - name: Gerar artefato do frontend
+        uses: actions/upload-artifact@v4
+        with:
+          name: safebite-frontend
+          path: ${{ env.SITE_ROOT }}
