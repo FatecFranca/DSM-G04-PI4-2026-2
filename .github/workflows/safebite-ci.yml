@@ -11,37 +11,32 @@ on:
   pull_request:
 
 jobs:
-  verificar:
+  testes:
+    name: Testes do SafeBite
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar repositório
+      - name: Baixar repositorio
         uses: actions/checkout@v4
 
-      - name: Preparar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Identificar raiz do site
-        run: |
-          if [ -d View/Dashboard ]; then
-            echo "SITE_ROOT=View" >> "$GITHUB_ENV"
-          else
-            echo "SITE_ROOT=." >> "$GITHUB_ENV"
-          fi
-
       - name: Verificar JavaScript
         run: |
-          node --check "$SITE_ROOT/Dashboard/js/dados.js"
-          node --check "$SITE_ROOT/Dashboard/js/app.js"
-          node --check "$SITE_ROOT/Dashboard/js/embed.js"
+          node --check FRONTEND/View/Dashboard/js/dados.js
+          node --check FRONTEND/View/Dashboard/js/app.js
+          node --check FRONTEND/View/Dashboard/js/embed.js
 
-      - name: Executar testes
-        run: node --test "$SITE_ROOT/tests/safebite.test.cjs"
+      - name: Executar testes automatizados
+        run: |
+          node --test FRONTEND/tests/safebite.test.cjs
 
-      - name: Gerar artefato do frontend
+      - name: Gerar pacote do frontend
         uses: actions/upload-artifact@v4
         with:
           name: safebite-frontend
-          path: ${{ env.SITE_ROOT }}
+          path: FRONTEND/View/
+          if-no-files-found: error
