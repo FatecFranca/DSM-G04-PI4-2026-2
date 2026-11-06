@@ -236,3 +236,11 @@ footer {
     font-size: 24px;
   }
 }
+.incorporado .container {
+  padding-top: 14px;
+  padding-bottom: 8px;
+}
+
+.incorporado .cabecalho {
+  margin-bottom: 14px;
+}
