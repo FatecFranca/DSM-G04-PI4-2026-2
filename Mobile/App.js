@@ -27,6 +27,7 @@ import SuporteScreen from './screens/SuporteScreen';
 
 // NOVA TELA: BALANÇA NUTRICIONAL
 import BalancaScreen from './screens/Balanca';
+import DashboardScreen from './screens/DashboardScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -138,6 +139,11 @@ export default function App() {
         <Stack.Screen
           name="Balanca"
           component={BalancaScreen}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={DashboardScreen}
         />
 
       </Stack.Navigator>

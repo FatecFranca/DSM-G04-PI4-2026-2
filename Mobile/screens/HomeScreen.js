@@ -53,6 +53,14 @@ export default function HomeScreen({ navigation }) {
       identificador: '05',
       cor: '#0EA5E9',
     },
+    {
+      titulo: 'Dashboard alimentar',
+      descricao:
+        'Consulte indicadores, gráficos e estatísticas de consumo com dados demonstrativos e filtros por período.',
+      destino: 'Dashboard',
+      identificador: '06',
+      cor: '#15966A',
+    },
   ];
 
   function abrirTela(destino) {
