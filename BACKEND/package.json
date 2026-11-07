@@ -63,9 +63,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "allowScripts": {
-    "bcrypt@5.1.1": true,
-    "sharp@0.33.5": true
   }
 }
