@@ -1,0 +1,36 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+build/
+out/
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.parcel-cache/
+.npm/
+.eslintcache
+
+# Banco de dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Coverage
+coverage/
+
+# Arquivos de configuração
+package-lock.json
+yarn.lock
+
+# Uploads
+uploads/
+
+# Arquivos gerados
+*.min.js
+

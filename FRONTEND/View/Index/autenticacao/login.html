@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — SafeBite</title>
+  <link rel="icon" href="../../Images/favicon.ico">
+  <link rel="stylesheet" href="../../Estilos/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="tela-login">
+
+  <a href="inicio.html" class="btn-voltar">← Voltar</a>
+
+  <!-- Painel esquerdo: imagem -->
+  <div class="panel-image">
+    <img src="../../Images/Imagem3.jpg" alt="Comida" />
+    <div class="panel-image-overlay"></div>
+  </div>
+
+  <!-- Painel direito: formulário -->
+  <div class="panel-form">
+    <div class="form-card">
+
+      <div class="form-logo">
+        <img src="../../Images/logo.png" alt="SafeBite" />
+      </div>
+
+      <h1 class="form-title">Bem-vindo ao SafeBite</h1>
+      <p class="form-subtitle">Entre para gerenciar suas restrições e descobrir receitas seguras.</p>
+
+      <form id="form-login">
+
+        <div class="field">
+          <label class="field-label" for="email">E-mail</label>
+          <div class="input-group">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="email" placeholder="seu@email.com" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-header">
+            <span class="field-label">Senha</span>
+            <a href="recuperar-senha.html" class="field-link">Esqueci minha senha</a>
+          </div>
+          <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="senha" placeholder="••••••••" required />
+          </div>
+        </div>
+
+        <label class="check-label">
+          <input type="checkbox" id="manter-conectado" />
+          Manter-me conectado
+        </label>
+
+        <button type="submit" class="btn-submit">Entrar →</button>
+
+        <div class="divider-label">OU CONTINUE COM</div>
+
+        <p class="signup-link">Não tem uma conta? <a href="cadastro.html">Criar conta agora</a></p>
+
+        <p class="secure-note">🔒 Conexão segura e criptografada</p>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts necessários -->
+  <script src="../../Script/config.js"></script>
+  <script src="../../Script/routes.js"></script>
+  <script src="../../Script/api.service.js"></script>
+  <script src="../../Script/utils.js"></script>
+  <script src="../../Script/login.js"></script>
+</body>
+</html>

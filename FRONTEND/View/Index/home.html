@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safe Bite - Menu Principal</title>
+    <link rel="icon" href="/Images/favicon.ico" />
+    <link rel="stylesheet" href="/Estilos/app-shell.css">
+    <link rel="stylesheet" href="/Estilos/home.css">
+</head>
+
+<body data-active-nav="inicio" data-asset-base="../">
+
+    <div id="app-shell"></div>
+
+    <!-- Modal de Restrições -->
+    <div id="modal-restricoes" class="modal-restricoes" aria-hidden="true" role="dialog"
+        aria-labelledby="modal-restricoes-titulo">
+        <div class="modal-restricoes-overlay" onclick="fecharModalRestricoes()"></div>
+        <div class="modal-restricoes-content">
+            <div class="modal-restricoes-header">
+                <h2 id="modal-restricoes-titulo">Selecione sua restrição alimentar</h2>
+                <button class="modal-restricoes-close" onclick="fecharModalRestricoes()"
+                    aria-label="Fechar modal">×</button>
+            </div>
+            <div class="modal-restricoes-body" id="modal-restricoes-body">
+                <div style="text-align: center; padding: 40px; color: #666;">Carregando restrições...</div>
+            </div>
+            <div class="modal-restricoes-footer">
+                <button id="btn-salvar-restricoes" class="btn-salvar-restricoes">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <main class="text" role="main">
+
+        <!-- Banner de boas-vindas -->
+        <div class="home-hero">
+            <p class="home-hero-saudacao" id="home-saudacao">Bem-vindo(a) ao Safe Bite! 👋</p>
+            <p class="home-hero-sub">Uma mordida sempre pode ser saudável! Explore receitas personalizadas para o seu
+                perfil alimentar.</p>
+        </div>
+
+        <!-- Cards informativos -->
+        <div class="home-cards-grid">
+            <a href="/Index/dashboard.html" class="home-card card-dashboard">
+                <span class="home-card-icon">📊</span>
+
+                <h3>Dashboard alimentar</h3>
+
+                <p>
+                    Acompanhe calorias, metas e alarmes.
+                    Visualize gráficos e análises estatísticas.
+                </p>
+
+                <span class="card-dashboard-link">
+                    Acessar dashboard →
+                </span>
+            </a>
+            <div class="home-card home-card-destaque">
+                <span class="home-card-icon">🌿</span>
+                <h3>O que é o Safe Bite?</h3>
+                <p>O Safe Bite nasceu para ser a solução definitiva para quem vive com restrições alimentares. Nossa
+                    plataforma é totalmente personalizada: ao informar suas restrições no cadastro, você recebe receitas
+                    automaticamente adaptadas ao seu perfil — sem riscos, sem surpresas.</p>
+            </div>
+
+            <div class="home-card">
+                <span class="home-card-icon">🔒</span>
+                <h3>Receitas seguras para você</h3>
+                <p>Encontre pratos 100% compatíveis com suas restrições alimentares. O sistema filtra automaticamente
+                    tudo que pode te prejudicar.</p>
+            </div>
+
+            <div class="home-card">
+                <span class="home-card-icon">🤝</span>
+                <h3>Comunidade ativa</h3>
+                <p>Publique suas próprias receitas, avalie pratos de outros usuários e compartilhe dicas de substituição
+                    de ingredientes.</p>
+            </div>
+
+            <div class="home-card">
+                <span class="home-card-icon">✏️</span>
+                <h3>Perfil personalizado</h3>
+                <p>Mantenha suas informações atualizadas, adicione uma foto e gerencie suas restrições a qualquer
+                    momento pelo perfil.</p>
+            </div>
+
+            <div class="home-card">
+                <span class="home-card-icon">🚀</span>
+                <h3>Como começar?</h3>
+                <p>Clique no menu e acesse o <strong>Tutorial</strong> — um guia passo a passo feito especialmente para
+                    você aproveitar tudo que o Safe Bite tem a oferecer!</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Scripts necessários -->
+    <script src="../Script/config.js"></script>
+    <script src="../Script/routes.js"></script>
+    <script src="../Script/api.service.js"></script>
+    <script src="../Script/utils.js"></script>
+    <script src="../Script/components/auth-guard.js"></script>
+    <script src="../Script/components/layout.js"></script>
+    <script src="../Script/home.js"></script>
+    <script src="../Script/modal-restricoes.js"></script>
+    <script>
+        // Saudação personalizada com nome do usuário
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                const user = window.apiService?.getCurrentUser?.();
+                const saudacao = document.getElementById('home-saudacao');
+                if (saudacao && user && user.nome) {
+                    const primeiroNome = user.nome.split(' ')[0];
+                    saudacao.textContent = 'Olá, ' + primeiroNome + '! 👋';
+                }
+            } catch (e) { }
+        });
+    </script>
+
+    <footer>
+        <h4>"Ver a cozinha do Nelita pelas lentes dele, foi como enxergar meu próprio trabalho com outros olhos." -
+            Tássia Magalhães.</h4>
+    </footer>
+</body>
+
+</html>

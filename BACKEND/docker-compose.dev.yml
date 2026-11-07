@@ -1,0 +1,43 @@
+version: '3.8'
+
+# Arquivo de desenvolvimento - apenas banco de dados MongoDB
+# Use: docker-compose -f docker-compose.dev.yml up -d
+
+services:
+  mongodb:
+    image: mongo:7-jammy
+    container_name: safebite_mongodb_dev
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: safebite_db
+      # Descomente abaixo se quiser autenticação no MongoDB local:
+      # MONGO_INITDB_ROOT_USERNAME: admin
+      # MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_dev_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Interface visual opcional para o MongoDB (equivale ao pgAdmin)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: safebite_mongo_express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_dev_data:
+    driver: local

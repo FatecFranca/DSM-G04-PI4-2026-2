@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Safe Bite - Publicações</title>
+    <link rel="icon" href="/Images/favicon.ico" />
+    <link rel="stylesheet" href="/Estilos/app-shell.css">
+    <link rel="stylesheet" href="/Estilos/publicacoes.css">
+</head>
+<body data-active-nav="publicacoes" data-asset-base="../">
+
+    <div id="app-shell"></div>
+
+    <!-- Conteúdo principal da página Publicações -->
+    <main class="conteudo-publicacoes">
+
+        <!-- Seção: Criar nova receita -->
+        <section class="nova-receita">
+            <h2>Criar uma nova receita</h2>
+            <button class="btn-nova-receita" aria-label="Criar nova receita" onclick="abrirRegistroReceita()">
+                <span>+</span>
+            </button>
+        </section>
+
+        <hr class="divisor">
+
+        <!-- Seção: Receitas publicadas -->
+        <section class="receitas-publicadas">
+            <h2>Receitas publicadas</h2>
+            <div id="container-receitas" class="container-receitas">
+                <!-- Receitas serão carregadas dinamicamente aqui -->
+                <div id="loading-receitas" class="loading-message" style="display: none;">
+                    <p>Carregando suas receitas...</p>
+                </div>
+                <div id="mensagem-vazia" class="mensagem-vazia" style="display: none;">
+                    <p>Você ainda não publicou nenhuma receita.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Popup de ações da receita -->
+    <div class="popup-overlay" id="popup-receita">
+    <div class="popup popup-receita">
+        <p>O que você deseja fazer?</p>
+        <div class="popup-botoes">
+        <button class="btn-visualizar" onclick="visualizarReceita()">Visualizar Receita</button>
+        <button class="btn-editar" onclick="editarReceita()">Editar Receita</button>
+        <button class="btn-excluir" onclick="excluirReceita()">Excluir Receita</button>
+        <button class="btn-cancelar" onclick="fecharPopupReceita()">Cancelar</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- Pop-up de confirmação de exclusão -->
+    <div class="popup-overlay" id="popup-confirmar-exclusao">
+        <div class="popup">
+            <p>Opa! Você acabou de clicar em excluir receita, deseja isso mesmo?</p>
+            <div class="popup-botoes">
+                <button class="btn-cancelar-exclusao" onclick="fecharPopupExcluir()">Cancelar</button>
+                <button class="btn-confirmar-exclusao" onclick="confirmarExclusaoReceita()">Excluir Receita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts necessários -->
+    <script src="../Script/config.js"></script>
+    <script src="../Script/routes.js"></script>
+    <script src="../Script/api.service.js"></script>
+    <script src="../Script/utils.js"></script>
+    <script src="../Script/components/auth-guard.js"></script>
+    <script src="../Script/components/layout.js"></script>
+    <script src="../Script/publicacoes.js"></script>
+
+    <footer>
+        <h4>"Ver a cozinha do Nelita pelas lentes dele, foi como enxergar meu próprio trabalho com outros olhos." - Tássia Magalhães.</h4>
+    </footer>    
+</body>
+</html>

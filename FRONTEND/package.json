@@ -1,0 +1,27 @@
+﻿{
+  "name": "safebitepi-frontend",
+  "version": "1.0.0",
+  "description": "Frontend da aplicação SafeBite - Plataforma de receitas com foco em restrições alimentares",
+  "main": "View/Index/home.html",
+  "scripts": {
+    "start": "http-server View -p 3000 -o /Index/autenticacao/inicio.html -c-1",
+    "dev": "http-server View -p 3000 -o /Index/autenticacao/inicio.html -c-1",
+    "serve": "http-server View -p 3000",
+    "serve:8080": "http-server View -p 8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "frontend",
+    "html",
+    "css",
+    "javascript",
+    "safebite",
+    "recipes"
+  ],
+  "author": "SafeBite Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+

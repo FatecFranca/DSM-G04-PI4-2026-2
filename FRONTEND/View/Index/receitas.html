@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Safe Bite - Receitas</title>
+    <link rel="icon" href="/Images/favicon.ico" />
+    <link rel="stylesheet" href="/Estilos/app-shell.css">
+    <link rel="stylesheet" href="/Estilos/receitas.css">
+</head>
+<body data-active-nav="receitas" data-asset-base="../">
+
+    <div id="app-shell"></div>
+
+    <!-- Conteúdo principal da página Receitas -->
+    <main class="conteudo-receitas">
+        <!-- Barra de Pesquisa -->
+        <div class="barra-pesquisa">
+            <span class="icone-lupa">⌕</span>
+            <input type="text" id="campo-pesquisa" class="campo-pesquisa" placeholder="Pesquisar" aria-label="Campo de pesquisa de receitas">
+        </div>
+
+        <!-- Título da Seção -->
+        <h2 class="titulo-secao" id="titulo-secao">Receitas</h2>
+
+        <!-- Mensagem de resultado da busca -->
+        <div class="resultado-busca" id="resultado-busca" style="display: none;">
+            <p class="texto-resultado">Resultado sobre: <span id="termo-buscado"></span></p>
+        </div>
+
+        <!-- Mensagem de nenhum resultado encontrado -->
+        <div class="nenhum-resultado" id="nenhum-resultado" style="display: none;">
+            <div class="emoji-triste">😞</div>
+            <p class="mensagem-sem-resultado">Nenhum resultado encontrado!</p>
+        </div>
+
+        <!-- Grid de Receitas -->
+        <div class="grid-receitas" id="grid-receitas">
+            <!-- Receitas serão carregadas dinamicamente da API -->
+            <div style="text-align: center; padding: 40px; color: #666;">Carregando receitas...</div>
+        </div>
+    </main>
+
+    <!-- Scripts necessários -->
+    <script src="../Script/config.js"></script>
+    <script src="../Script/routes.js"></script>
+    <script src="../Script/api.service.js"></script>
+    <script src="../Script/utils.js"></script>
+    <script src="../Script/components/auth-guard.js"></script>
+    <script src="../Script/components/layout.js"></script>
+    <script src="../Script/receitas.js"></script>
+
+    <footer>
+        <h4>"Ver a cozinha do Nelita pelas lentes dele, foi como enxergar meu próprio trabalho com outros olhos." - Tássia Magalhães.</h4>
+    </footer>    
+</body>
+</html>

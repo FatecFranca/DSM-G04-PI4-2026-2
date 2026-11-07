@@ -1,0 +1,179 @@
+/* Página Instruções */
+
+.text {
+  padding: var(--content-offset) 42px 60px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho da página */
+.instrucoes-header {
+  margin-bottom: 36px;
+}
+
+.instrucoes-header h2 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.instrucoes-header p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Steps / passos */
+.instrucoes-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.instrucoes-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.instrucoes-step:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 122, 0, 0.2);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+}
+
+.instrucoes-step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.instrucoes-step-numero {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), #FF9F43);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 122, 0, 0.28);
+}
+
+.instrucoes-step-titulo {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.instrucoes-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 60px;
+}
+
+.instrucoes-step-body p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.75;
+  background: var(--background);
+  border-radius: 12px;
+  padding: 14px 18px;
+  border-left: 3px solid rgba(255, 122, 0, 0.25);
+}
+
+/* Card de conclusão */
+.instrucoes-conclusao {
+  background: linear-gradient(135deg, rgba(255,122,0,0.07) 0%, rgba(34,197,94,0.07) 100%);
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.instrucoes-conclusao h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.instrucoes-conclusao p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Suporte retrocompatível com markup original */
+.text > h2 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.text > p:first-of-type {
+  margin: 0 0 26px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.text h3:not(.instrucoes-step-titulo):not(.instrucoes-conclusao h3) {
+  margin: 28px 0 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.text > p:not(:first-of-type) {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin: 0 0 14px;
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: 0.25s ease;
+}
+
+.text > p:not(:first-of-type):hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 122, 0, 0.2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 768px) {
+  .text {
+    padding: calc(var(--header-height) + 24px) 20px 40px;
+  }
+
+  .instrucoes-header h2,
+  .text > h2 {
+    font-size: 1.6rem;
+  }
+
+  .instrucoes-step-body {
+    padding-left: 0;
+  }
+
+  .instrucoes-step {
+    padding: 22px 18px 18px;
+  }
+}

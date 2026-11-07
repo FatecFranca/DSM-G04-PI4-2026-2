@@ -1,0 +1,434 @@
+/* Páginas Publicações, registro e detalhe de receita */
+
+.conteudo-publicacoes {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--content-offset) 42px 42px;
+}
+
+.conteudo-publicacoes::before {
+  content: "Gerencie suas receitas";
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.conteudo-publicacoes::after {
+  content: "Crie, visualize, edite e exclua suas receitas publicadas.";
+  display: block;
+  color: var(--text-light);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.nova-receita,
+.receitas-publicadas {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.nova-receita h2,
+.receitas-publicadas h2 {
+  margin: 0 0 18px;
+  font-size: 1.35rem;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.btn-nova-receita {
+  width: 100%;
+  min-height: 160px;
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.12), rgba(34, 197, 94, 0.1));
+  border: 2px dashed rgba(255, 122, 0, 0.45);
+  border-radius: 18px;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 4rem;
+  font-weight: 300;
+  transition: 0.25s ease;
+}
+
+.btn-nova-receita:hover {
+  background: var(--hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(255, 122, 0, 0.12);
+}
+
+.divisor {
+  border: 0;
+  margin: 28px 0;
+}
+
+.container-receitas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.card-receita {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: 0.25s ease;
+}
+
+.card-receita:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 122, 0, 0.25);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+}
+
+.card-receita img {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-receita p {
+  margin: 0;
+  padding: 16px 18px;
+  min-height: 70px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.loading-message,
+.mensagem-vazia,
+.mensagem-erro {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.conteudo-registro-receita {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--content-offset) 42px 42px;
+}
+
+.form-receita {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+  outline: none;
+  transition: 0.25s ease;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.14);
+}
+
+.upload-area {
+  width: 100%;
+  min-height: 190px;
+  border: 2px dashed rgba(255, 122, 0, 0.45);
+  border-radius: 18px;
+  background: var(--hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.upload-area img,
+#preview-imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icone-camera {
+  width: 42px;
+  opacity: 0.65;
+}
+
+.form-receita .btn-salvar {
+  justify-self: end;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), #FF9F43);
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.form-receita .btn-salvar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 122, 0, 0.25);
+}
+
+.conteudo-receita {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: var(--content-offset) 42px 42px;
+}
+
+.receita-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+.titulo-receita {
+  grid-column: 1 / -1;
+  margin: 0 0 8px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Imagem ocupa largura total logo após o título */
+.imagem-receita {
+  grid-column: 1 / -1;
+}
+
+.imagem-receita img {
+  width: 100%;
+  max-height: 420px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.bloco-ingredientes,
+.bloco-modo-preparo,
+.bloco-tempo,
+.bloco-propriedades,
+.bloco-restricoes {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.bloco-ingredientes h2,
+.bloco-modo-preparo h2,
+.bloco-tempo h2,
+.bloco-propriedades h2,
+.bloco-restricoes h2 {
+  margin-top: 0;
+  color: var(--text);
+}
+
+.bloco-restricoes li.restricao-com-alerta {
+  background: #FFF7ED;
+  border-left: 4px solid var(--primary);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.popup-overlay,
+#popup-confirmar-exclusao {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+}
+
+.popup-overlay.ativo,
+#popup-confirmar-exclusao.ativo {
+  display: flex;
+}
+
+.popup {
+  width: min(420px, 92vw);
+  background: var(--surface);
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+  animation: popupFadeIn 0.25s ease;
+}
+
+.popup p {
+  margin: 0 0 22px;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.popup-botoes {
+  display: grid;
+  gap: 12px;
+}
+
+.popup-botoes button,
+.btn-cancelar-exclusao,
+.btn-confirmar-exclusao {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-visualizar {
+  background: #EAFBF0;
+  color: var(--secondary);
+}
+
+.conteudo-publicacoes .btn-editar,
+.popup-botoes .btn-editar {
+  background: #FFF4E8;
+  color: var(--primary);
+}
+
+.btn-excluir,
+.btn-confirmar-exclusao {
+  background: #FEE2E2;
+  color: var(--danger);
+}
+
+.btn-cancelar,
+.btn-cancelar-exclusao {
+  background: var(--text);
+  color: #fff;
+}
+
+.popup-botoes button:hover,
+.btn-cancelar-exclusao:hover,
+.btn-confirmar-exclusao:hover {
+  transform: translateY(-2px);
+}
+
+.modal-restricoes-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
+}
+
+.modal-restricoes-overlay.active {
+  display: flex;
+}
+
+.modal-restricoes-content {
+  background: var(--surface);
+  border-radius: 24px;
+  width: 90%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+}
+
+.modal-restricoes-header,
+.modal-restricoes-footer {
+  padding: 22px 26px;
+  border-color: var(--border);
+}
+
+.categoria-titulo {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.restricao-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.restricao-item:hover {
+  border-color: var(--primary);
+  background: var(--hover);
+}
+
+.restricao-item input[type="checkbox"] {
+  accent-color: var(--primary);
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .conteudo-publicacoes,
+  .conteudo-registro-receita,
+  .conteudo-receita {
+    padding: calc(var(--header-height) + 24px) 20px 32px;
+  }
+
+  .container-receitas,
+  .form-receita,
+  .receita-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card-receita img {
+    height: 170px;
+  }
+
+  body.menu-open .conteudo-publicacoes,
+  body.menu-open .conteudo-registro-receita,
+  body.menu-open .conteudo-receita {
+    margin-left: 0;
+    width: 100%;
+  }
+}

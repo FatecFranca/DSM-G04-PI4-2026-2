@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Safe Bite - Perfil do Usuário</title>
+    <link rel="icon" href="/Images/favicon.ico" />
+    <link rel="stylesheet" href="/Estilos/app-shell.css">
+    <link rel="stylesheet" href="/Estilos/perfil.css">
+</head>
+<body data-asset-base="../">
+
+    <div id="app-shell"></div>
+
+    <!-- Conteúdo principal -->
+        <main class="perfil-container" role="main">
+
+            <div class="perfil-foto">
+                <img id="foto-perfil-img" src="" alt="Foto de Perfil" style="display: none;">
+                <div id="iniciais-perfil" class="iniciais-perfil"></div>
+                <input type="file" id="foto-perfil-input" accept="image/*" hidden>
+                <button id="btn-remover-foto" class="btn-remover-foto" onclick="removerFotoPerfil()" aria-label="Remover foto de perfil" style="display: none;" title="Remover foto">
+                    <span>×</span>
+                </button>
+            </div>
+
+            <!-- Nome -->
+            <div class="perfil-info">
+                <h2 id="nome-usuario" class="nome-usuario-display"></h2>
+                <div class="campo-nome-wrapper">
+                    <input type="text" class="campo-valor campo-nome" id="nome-usuario-input" 
+                        name="nome-usuario" readonly>
+                </div>
+                <div class="invalid-feedback">Por favor, informe um nome válido (mínimo 2 caracteres)!</div>
+            </div>
+
+        <!-- Dados do Usuário -->
+        <form id="dados-usuario" class="needs-validation" novalidate>
+            <div class="campos-grid">
+                
+                <!-- Campo Telefone (linha 1, coluna 1) -->
+                <div class="campo">
+                    <label for="telefone-usu">
+                        Telefone
+                    </label>
+                    <input type="tel" class="campo-valor" id="telefone-usu" name="telefone-usu" 
+                        value="(XX) XXXXX-XXXX" readonly>
+                    <div class="invalid-feedback">Por favor, informe um telefone válido!</div>
+                </div>
+
+                <!-- Campo Idade (linha 1, coluna 2) -->
+                <div class="campo">
+                    <label for="idade-usu">
+                        Idade
+                    </label>
+                    <input type="text" class="campo-valor" id="idade-usu" name="idade-usu" 
+                        value="XX anos" readonly>
+                    <div class="invalid-feedback">Por favor, informe sua idade corretamente!</div>
+                </div>
+
+                <!-- Campo Email (linha 2, coluna 1) -->
+                <div class="campo campo-email">
+                    <label for="email-info">
+                        Dados de email
+                    </label>
+                    <div class="email-info" id="email-info">
+                        E-mail: <br>
+                        Senha: <br>
+                        Verificação de email: Não verificado
+                    </div>
+                    <input type="email" class="campo-valor campo-email-edit" id="email-usu" 
+                        name="email-usu" value="sebastianBT@gmail.com" hidden>
+                    <input type="password" class="campo-valor campo-senha-edit" id="senha-usu" 
+                        name="senha-usu" value="**********" hidden>
+                </div>
+
+                <!-- Campo Restrições (linha 2, coluna 2) -->
+                <div class="campo campo-restricoes">
+                    <div class="icone-alerta"><img src="../Images/alerta.png" alt="alerta"></div>
+                    <div class="restricoes-titulo">RESTRIÇÕES!!!</div>
+                    <div class="restricoes-texto">
+                        Palavras Chave: <span id="restricoes-valor"></span>
+                    </div>
+                    <input type="hidden" class="campo-valor " id="restricoes-usu" name="restricoes-usu" value="Tomate e Pêssego">
+                </div>
+
+            </div>
+        </form>
+
+        <!-- Botões: Editar, Salvar, Adicionar conta e Sair -->
+        <div class="botoes-inferiores">
+            <button id="btn-editar" class="btn-editar" onclick="ativarEdicao()">Editar</button>
+            <button id="btn-salvar" class="btn-salvar" onclick="salvarEdicao()" aria-label="Salvar Alterações">Salvar</button>
+            <button id="btn-adicionar" class="btn-adicionar" onclick="adicionarConta()" 
+                    aria-label="Adicionar nova Conta">
+                Adicionar nova conta
+            </button>
+            <button id="btn-sair" class="btn-sair" onclick="abrirPopupSair()" 
+                    aria-label="Sair da Conta">
+                Sair
+            </button>
+        </div>
+
+        <!-- Receitas Publicadas -->
+        <div class="receitas-publicadas">
+            <h3>Receitas publicadas</h3>
+            <div class="receitas-grid" id="receitas-grid">
+                <div class="receita-card" onclick="abrirReceita()">
+                    <div class="receita_imagem">
+                        <img src="../Images/suco_detox.jpg" alt="Suco detox">
+                    </div>
+                    <div class="receita-titulo">Suco detox: Limão, gengibre e abacaxi</div>
+                </div>
+                <!-- Mais cards serão adicionados via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pop-up de confirmação de saída -->
+    <div class="popup-overlay" id="popup-sair">
+        <div class="popup">
+            <p>Opa! Você acabou de clicar em sair da conta, tem certeza disso?</p>
+            <div class="popup-botoes">
+                <button class="btn-cancelar" onclick="fecharPopupSair()">Cancelar</button>
+                <button class="btn-confirmar-sair" onclick="confirmarSair()">Sair da Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts necessários -->
+    <script src="../Script/config.js"></script>
+    <script src="../Script/routes.js"></script>
+    <script src="../Script/api.service.js"></script>
+    <script src="../Script/utils.js"></script>
+    <script src="../Script/components/auth-guard.js"></script>
+    <script src="../Script/components/layout.js"></script>
+    <script src="../Script/perfil.js"></script>
+</body>
+</html>

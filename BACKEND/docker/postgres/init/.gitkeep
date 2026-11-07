@@ -1,0 +1,4 @@
+# Este diretório pode conter scripts SQL de inicialização
+# Arquivos .sql aqui serão executados automaticamente quando o container for criado pela primeira vez
+
+

@@ -1,0 +1,16 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.input {
+    padding: .8rem;
+    border-radius: var(--radius-md);
+    border: 1px solid #ddd;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary);
+}

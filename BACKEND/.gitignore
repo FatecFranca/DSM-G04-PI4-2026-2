@@ -1,0 +1,143 @@
+# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnp
+.pnp.js
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Testes
+coverage/
+.nyc_output/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE e Editores
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Uploads e arquivos de usuário
+uploads/*
+!uploads/.gitkeep
+*.tmp
+*.temp
+
+# Banco de dados
+*.sql
+*.db
+*.sqlite
+*.sqlite3
+pgdata/
+postgres-data/
+database.dump
+*.dump
+
+# Testes
+coverage/
+.nyc_output/
+.jest/
+*.test.js.snap
+*.lcov
+
+# Build e compilação
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+
+# Temporários
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Arquivos de configuração sensíveis
+*.pem
+*.key
+*.cert
+*.crt
+secrets/
+.secrets
+credentials/
+*.json
+!package.json
+!package-lock.json
+
+# Package managers
+package-lock.json.backup
+yarn.lock.backup
+.pnpm-store/
+
+# Arquivos específicos do projeto
+# Nota: migrations e seeds devem ser commitados, apenas backups são ignorados
+migrations/backup/
+migrations/temp/
+seeds/backup/
+seeds/temp/
+*.seed.backup
+*.seed.temp
+
+# Arquivos de backup
+*.bak
+*.backup
+*.old
+*~
+
+# Arquivos de sistema
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+
+# Documentação gerada
+docs/build/
+*.pdf
+
+# Arquivos de sessão
+sessions/
+*.session
+
+# Arquivos de cache do Node
+.npm
+.eslintcache
+.stylelintcache

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sua Segurança Alimentar — SafeBite</title>
+  <link rel="icon" href="../../Images/favicon.ico" />
+  <link rel="stylesheet" href="../../Estilos/restricoes.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- Cabeçalho -->
+  <div class="page-header">
+    <h1>Sua Segurança Alimentar</h1>
+    <p>Personalize sua experiência para que possamos filtrar receitas e alertar sobre ingredientes perigosos para você.</p>
+  </div>
+
+  <!-- Barra de progresso -->
+  <div class="progress-bar-wrap">
+    <div class="progress-meta">
+      <span>Passo 2 de 3</span>
+      <span>67% Concluído</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Card principal -->
+  <div class="form-card">
+
+    <div class="card-section-title">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h2>Configurar Restrições</h2>
+    </div>
+    <p class="card-section-desc">Selecione suas alergias e preferências alimentares abaixo.</p>
+
+    <!-- Alergias -->
+    <p class="chips-group-label">Alergias Comuns</p>
+    <p class="chips-sub">Selecione todos os ingredientes que você deve evitar.</p>
+    <div class="chips-wrap" id="chips-alergias">
+      <button type="button" class="chip" data-value="gluten">🌾 Glúten</button>
+      <button type="button" class="chip" data-value="lactose">🥛 Lactose</button>
+      <button type="button" class="chip" data-value="amendoim">🥜 Amendoim</button>
+      <button type="button" class="chip" data-value="frutos-do-mar">🦐 Frutos do Mar</button>
+      <button type="button" class="chip" data-value="ovos">🥚 Ovos</button>
+      <button type="button" class="chip" data-value="soja">🫘 Soja</button>
+      <button type="button" class="chip" data-value="castanhas">🌰 Castanhas</button>
+    </div>
+
+    <hr class="inner-divider">
+
+    <!-- Tipo de dieta -->
+    <p class="chips-group-label">Tipo de Dieta</p>
+    <p class="chips-sub">Isso nos ajudará a priorizar receitas que se encaixam no seu estilo de vida.</p>
+    <div class="chips-wrap" id="chips-dieta">
+      <button type="button" class="chip active" data-value="nenhuma">🍽 Nenhuma</button>
+      <button type="button" class="chip" data-value="vegetariana">🥦 Vegetariana</button>
+      <button type="button" class="chip" data-value="vegana">🌿 Vegana</button>
+      <button type="button" class="chip" data-value="paleo">🥩 Paleo</button>
+      <button type="button" class="chip" data-value="low-carb">📉 Low Carb</button>
+    </div>
+
+    <hr class="inner-divider">
+
+    <!-- Campo de texto livre -->
+    <label class="field-label">
+      Outras restrições ou observações
+      <span class="badge-optional">Opcional</span>
+    </label>
+    <textarea id="outras-restricoes" placeholder="Ex: Alergia a corante vermelho 40, intolerância leve a pimenta, ou observações médicas específicas..."></textarea>
+    <div class="ia-note">
+      <i class="fa-solid fa-circle-info"></i>
+      Nossa IA analisará estas observações para refinar os alertas de segurança em cada receita que você visualizar.
+    </div>
+
+    <!-- Rodapé do card -->
+    <div class="card-footer">
+      <a href="cadastro.html" class="btn-back">← Voltar</a>
+      <button type="button" class="btn-save" id="btn-avancar">
+        Salvar Restrições ✓
+      </button>
+    </div>
+
+    <p class="edit-note">ℹ️ Você poderá alterar estas preferências a qualquer momento no seu perfil.</p>
+
+  </div>
+
+</div>
+
+<!-- Chip toggle logic -->
+<script>
+  document.querySelectorAll('.chips-wrap').forEach(wrap => {
+    const isRadio = wrap.id === 'chips-dieta';
+    wrap.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (isRadio) {
+          wrap.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        } else {
+          chip.classList.toggle('active');
+        }
+      });
+    });
+  });
+</script>
+
+<!-- Scripts necessários -->
+<script src="../../Script/config.js"></script>
+<script src="../../Script/routes.js"></script>
+<script src="../../Script/api.service.js"></script>
+<script src="../../Script/utils.js"></script>
+<script src="../../Script/restricoes.js"></script>
+</body>
+</html>

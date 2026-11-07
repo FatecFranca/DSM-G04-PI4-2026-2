@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Safe Bite - Registro de Receitas</title>
+    <link rel="icon" href="/Images/favicon.ico" />
+    <link rel="stylesheet" href="/Estilos/app-shell.css">
+    <link rel="stylesheet" href="/Estilos/publicacoes.css">
+</head>
+<body data-active-nav="publicacoes" data-show-back="true" data-asset-base="../">
+
+    <div id="app-shell"></div>
+
+    <!-- Conteúdo principal da página Registro de Receita -->
+    <main class="conteudo-registro-receita">
+        <h2 id="titulo-pagina">Registro de Receita</h2>
+
+        <form class="form-receita" id="form-receita">
+            <!-- Foto -->
+            <div class="foto-receita">
+                <label for="foto">Foto da Receita:</label>
+                <div class="upload-area" id="upload-area">
+                    <img id="preview-imagem" src="../Images/icone_camera.jpg" alt="Adicionar foto" class="icone-camera" style="display: none;">
+                    <img id="placeholder-camera" src="../Images/icone_camera.jpg" alt="Adicionar foto" class="icone-camera">
+                    <input type="file" id="foto" name="foto" accept="image/*" hidden>
+                </div>
+                <p id="nome-arquivo" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666; display: none;"></p>
+            </div>
+
+            <!-- Propriedades -->
+            <div class="propriedades">
+                <label for="propriedades">Propriedades:</label>
+                <input type="text" id="propriedades" name="propriedades">
+            </div>
+
+            <!-- Nome -->
+            <div class="nome-receita">
+                <label for="nome">Nome da Receita:</label>
+                <input type="text" id="nome" name="nome">
+            </div>
+
+            <!-- Ingredientes -->
+            <div class="ingredientes">
+                <label for="ingredientes">Ingredientes:</label>
+                <textarea id="ingredientes" name="ingredientes"></textarea>
+            </div>
+
+            <!-- Tempo -->
+            <div class="tempo">
+                <label for="tempo">Tempo Estimado:</label>
+                <input type="text" id="tempo" name="tempo" placeholder="Ex: 30 minutos">
+            </div>
+
+            <!-- Rendimento -->
+            <div class="rendimento">
+                <label for="rendimento">Rendimento:</label>
+                <input type="text" id="rendimento" name="rendimento" placeholder="Ex: 4 porções">
+            </div>
+
+            <!-- Modo de preparo -->
+            <div class="modo-preparo">
+                <label for="modo">Modo de Preparo:</label>
+                <textarea id="modo" name="modo"></textarea>
+            </div>
+
+            <!-- Informação sobre detecção automática de restrições -->
+            <div class="restricoes-info" style="grid-column: 1 / -1; padding: 1rem; background: #f0f7ff; border-radius: 8px; border-left: 4px solid #667eea;">
+                <p style="margin: 0; font-size: 0.9rem; color: #555;">
+                    <strong>ℹ️ Informação:</strong> As restrições alimentares são detectadas automaticamente com base nos ingredientes da receita.
+                </p>
+            </div>
+
+            <!-- Status -->
+            <div class="status-receita">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="rascunho">Rascunho</option>
+                    <option value="publicada">Publicada</option>
+                </select>
+            </div>
+
+            <!-- Mensagens de erro/sucesso -->
+            <div id="mensagem-form" style="grid-column: 1 / -1; display: none; padding: 1rem; border-radius: 8px; margin-top: 1rem;"></div>
+
+            <!-- Botão Salvar -->
+            <button type="button" class="btn-salvar" id="btn-salvar">Salvar</button>
+        </form>
+    </main>
+
+    <!-- Scripts necessários -->
+    <script src="../Script/config.js"></script>
+    <script src="../Script/routes.js"></script>
+    <script src="../Script/api.service.js"></script>
+    <script src="../Script/utils.js"></script>
+    <script src="../Script/components/auth-guard.js"></script>
+    <script src="../Script/components/layout.js"></script>
+    <script src="../Script/publicacoes.js"></script>
+
+    <footer>
+        <h4>"Ver a cozinha do Nelita pelas lentes dele, foi como enxergar meu próprio trabalho com outros olhos." - Tássia Magalhães.</h4>
+    </footer>    
+</body>
+</html>

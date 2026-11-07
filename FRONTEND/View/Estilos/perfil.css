@@ -1,0 +1,502 @@
+/* Página Perfil */
+
+.perfil-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--content-offset) 42px 40px;
+}
+
+.perfil-foto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-remover-foto {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--danger);
+  border: 2px solid var(--surface);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  transition: 0.2s ease;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
+  transform: translate(25%, -25%);
+}
+
+.btn-remover-foto:hover,
+.btn-remover-foto.hovered {
+  transform: translate(25%, -25%) scale(1.08);
+}
+
+.btn-remover-foto span {
+  display: block;
+  margin-top: -2px;
+}
+
+.perfil-foto img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 3px solid rgba(255, 122, 0, 0.25);
+  transition: 0.25s ease;
+}
+
+.perfil-foto img:hover {
+  border-color: var(--primary);
+}
+
+.iniciais-perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFF4E8, #EAFBF0);
+  border: 3px solid rgba(255, 122, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.iniciais-perfil:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(255, 122, 0, 0.15);
+}
+
+.perfil-foto.has-photo .iniciais-perfil {
+  display: none;
+}
+
+.perfil-foto.has-photo img {
+  display: block;
+}
+
+.perfil-foto:not(.has-photo) img {
+  display: none;
+}
+
+.perfil-foto:not(.has-photo) .iniciais-perfil {
+  display: flex;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.perfil-info label {
+  display: none;
+}
+
+.nome-usuario-display {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.campo-nome-wrapper {
+  display: none;
+  width: 100%;
+  max-width: 320px;
+}
+
+.campo-nome {
+  display: none;
+}
+
+.campos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.campo {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.campo label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.campo-valor,
+.email-info {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.campo-email {
+  grid-column: 1 / 2;
+}
+
+.campo-email-edit,
+.campo-senha-edit {
+  margin-top: 10px;
+}
+
+.campo-restricoes {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #FFF7ED;
+  border-color: rgba(255, 122, 0, 0.25);
+}
+
+.restricoes-titulo {
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.restricoes-texto {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.icone-alerta img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.btn-editar,
+.btn-salvar {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-editar {
+  background: #EAFBF0;
+  color: var(--secondary);
+}
+
+.btn-salvar {
+  display: none;
+  background: linear-gradient(135deg, var(--primary), #FF9F43);
+  color: #fff;
+}
+
+.btn-editar:hover,
+.btn-salvar:hover,
+.btn-editar.hovered,
+.btn-salvar.hovered {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.botoes-inferiores {
+  display: flex;
+  gap: 14px;
+  margin: 28px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-adicionar,
+.btn-sair {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-adicionar {
+  background: #EAFBF0;
+  color: var(--secondary);
+}
+
+.btn-sair {
+  background: #FEE2E2;
+  color: var(--danger);
+}
+
+.btn-adicionar:hover,
+.btn-sair:hover,
+.btn-adicionar.hovered,
+.btn-sair.hovered {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+body.modo-edicao .nome-usuario-display {
+  display: none;
+}
+
+body.modo-edicao .campo-nome-wrapper {
+  display: block;
+}
+
+body.modo-edicao .campo-nome {
+  display: block;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+body.modo-edicao .campo-valor {
+  background: var(--surface);
+}
+
+body.modo-edicao .campo-valor:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.14);
+}
+
+body.modo-edicao .btn-editar {
+  display: none;
+}
+
+body.modo-edicao .btn-salvar {
+  display: inline-block;
+}
+
+body.modo-edicao .email-info {
+  display: none;
+}
+
+body.modo-edicao .campo-email-edit,
+body.modo-edicao .campo-senha-edit {
+  display: block !important;
+}
+
+.invalid-feedback {
+  display: none;
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.campo-valor.invalido,
+.campo-nome.invalido {
+  border-color: var(--danger) !important;
+  background: #FEF2F2 !important;
+}
+
+.campo-valor.invalido + .invalid-feedback,
+.campo-nome.invalido + .invalid-feedback {
+  display: block;
+}
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 5000;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-overlay.ativo {
+  display: flex;
+}
+
+.popup {
+  width: min(420px, 92vw);
+  background: var(--surface);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+  animation: popupFadeIn 0.25s ease;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popup p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 22px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.popup-botoes {
+  display: grid;
+  gap: 12px;
+}
+
+.btn-cancelar,
+.btn-confirmar-sair {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-cancelar {
+  background: var(--text);
+  color: #fff;
+}
+
+.btn-confirmar-sair {
+  background: #FEE2E2;
+  color: var(--danger);
+}
+
+.btn-cancelar:hover,
+.btn-confirmar-sair:hover {
+  transform: translateY(-2px);
+}
+
+.receitas-publicadas {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.receitas-publicadas h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 20px;
+  color: var(--text);
+}
+
+.receitas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.receita-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: 0.25s ease;
+}
+
+.receita-card:hover,
+.receita-card.hovered {
+  transform: translateY(-4px);
+  border-color: rgba(255, 122, 0, 0.25);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+}
+
+.receita_imagem {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.receita_imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.receita-titulo {
+  padding: 14px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .perfil-container {
+    padding: calc(var(--header-height) + 24px) 20px 30px;
+  }
+
+  .campos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campo-email,
+  .campo-restricoes {
+    grid-column: 1;
+  }
+
+  .campo-restricoes {
+    grid-row: auto;
+  }
+
+  .botoes-inferiores {
+    flex-direction: column;
+  }
+
+  .btn-editar,
+  .btn-salvar,
+  .btn-adicionar,
+  .btn-sair {
+    width: 100%;
+  }
+}
