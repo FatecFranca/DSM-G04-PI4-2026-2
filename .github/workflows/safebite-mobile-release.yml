@@ -1,0 +1,60 @@
+name: SafeBite Mobile - Release por tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: safebite-mobile-production
+  cancel-in-progress: false
+
+jobs:
+  release-mobile:
+    # Habilite apenas depois de configurar EAS Update e criar um build de producao.
+    if: ${{ vars.MOBILE_EAS_ENABLED == 'true' }}
+    name: Publicar atualizacao mobile no Expo (EAS Update)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Mobile
+
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: Mobile/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci --no-audit --no-fund
+
+      - name: Executar testes mobile
+        run: npm run test:dashboard
+
+      - name: Verificar configuracao EAS Update
+        run: |
+          node - <<'NODE'
+          const expo = require('./app.json').expo;
+          if (!expo.extra?.eas?.projectId || !expo.updates?.url || !expo.runtimeVersion) {
+            console.error('Execute eas init e eas update:configure no Mobile antes de habilitar MOBILE_EAS_ENABLED.');
+            process.exit(1);
+          }
+          NODE
+
+      - name: Configurar CLI do Expo
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Publicar atualização de JavaScript no canal production
+        run: eas update --channel production --message "SafeBite ${GITHUB_REF_NAME}" --environment production --non-interactive

@@ -30,7 +30,7 @@ const ALIMENTOS = [
   { valor: 2, rotulo: 'Ovo' },
 ];
 
-export default function BalancaScreen() {
+export default function BalancaScreen({ navigation }) {
   const t = useTema();
 
   const {
@@ -138,6 +138,11 @@ export default function BalancaScreen() {
         <Text style={styles.subtitulo}>
           Monitoramento IoT
         </Text>
+
+        <Botao
+          rotulo="Abrir dashboard alimentar"
+          onPress={() => navigation.navigate('Dashboard')}
+        />
 
         <View style={styles.statusContainer}>
           <Pilula
