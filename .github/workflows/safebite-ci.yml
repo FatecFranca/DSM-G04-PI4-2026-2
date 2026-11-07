@@ -1,4 +1,3 @@
-
 name: SafeBite CI
 
 on:
@@ -6,13 +5,15 @@ on:
     branches:
       - main
       - master
-      - feat/dashboard-safebite
-
+      - 'feat/**'
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
-  testes:
-    name: Validacao SafeBite
+  testes-web:
+    name: Validar dashboard web
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +31,7 @@ jobs:
           node --check FRONTEND/View/Dashboard/js/app.js
           node --check FRONTEND/View/Dashboard/js/embed.js
 
-      - name: Executar testes SafeBite
+      - name: Executar testes SafeBite web
         run: node --test FRONTEND/tests/safebite.test.cjs
 
       - name: Gerar artefato do frontend
@@ -39,3 +40,28 @@ jobs:
           name: safebite-frontend
           path: FRONTEND/View/
           if-no-files-found: error
+
+  testes-mobile:
+    name: Validar dashboard mobile (Expo)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Mobile
+
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js e cache npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: Mobile/package-lock.json
+
+      - name: Instalar dependencias travadas
+        run: npm ci --no-audit --no-fund
+
+      - name: Testar base e calculos do dashboard
+        run: npm run test:dashboard
