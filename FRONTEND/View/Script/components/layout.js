@@ -18,7 +18,7 @@ const SafeBiteLayout = {
   DEVELOPERS: [
     'Amanda C. Olegário',
     'Gabriel Sanches Martins',
-    'Luis Eduardo de Campos',
+    'Pyetro Morgan',
     'Lauana dos Santos'
   ],
 
