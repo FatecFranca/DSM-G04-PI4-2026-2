@@ -1,5 +1,6 @@
 # Links importantes:
 Protótipo navegável: https://app.visily.ai/projects/30959664-464e-4b80-919c-d7aaebc82af5/boards/2614161
+Ambiente Wokwi (IoT): https://wokwi.com/projects/474908140601905153
 
 # SafeBite Frontend
 
