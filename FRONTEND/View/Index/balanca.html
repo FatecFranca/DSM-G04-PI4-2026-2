@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Balança Nutricional IoT</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%96%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../Estilos/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="back-to-safebite" href="/Index/home.html" aria-label="Voltar ao SafeBite">← Voltar ao SafeBite</a>
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <h1>Balança Nutricional IoT</h1>
+        <p class="subtitle">ESP32 (Wokwi) → MQTT → gêmeo digital 3D</p>
+      </div>
+    </div>
+    <div class="status">
+      <span class="pill" id="pill-broker" data-state="conectando"><i class="dot"></i><span>Broker: conectando…</span></span>
+      <span class="pill" id="pill-device" data-state="desconhecido"><i class="dot"></i><span>Dispositivo: aguardando…</span></span>
+      <span class="updated" id="updated">sem dados ainda</span>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <!-- ===================== GÊMEO DIGITAL 3D ===================== -->
+  <section class="stage-section" aria-label="Gêmeo digital 3D da balança">
+    <div class="stage" id="stage" tabindex="0" aria-label="Gêmeo digital 3D da balança nutricional. Arraste para girar a câmera, role para aproximar e clique na tampa para abrir ou fechar.">
+      <div class="stage-msg" id="stage-msg">Carregando o 3D…</div>
+
+      <!-- rótulos que acompanham os objetos da cena -->
+      <div class="tags">
+        <div class="tag tag-plate" id="tag-plate">
+          <div class="tp-head"><span id="tp-emoji">🍚</span><b id="tp-nome">Arroz</b><em id="tp-estado">aguardando o prato</em></div>
+          <div class="tp-peso"><strong id="tp-peso">--</strong><span>g</span></div>
+          <div class="tp-kcal"><b id="tp-kcal">--</b> kcal<i id="tp-pct"></i></div>
+        </div>
+        <div class="tag tag-station" id="tag-station" data-level="ok">
+          <span class="ts-dot"></span><span><b id="ts-temp">--</b> °C</span><span class="ts-sep"></span><span><b id="ts-umid">--</b> % UR</span>
+        </div>
+        <div class="tag tag-jar" id="tag-jar" data-level="ok">
+          <div class="tj-top"><b id="tj-dia">--</b> / <span id="tj-meta">--</span> kcal</div>
+          <div class="tj-bar"><i id="tj-fill"></i></div>
+          <div class="tj-note" id="tj-note">meta do dia</div>
+        </div>
+        <button class="tag tag-lid" id="tag-lid" type="button"><span id="tl-estado">Tampa</span><small id="tl-acao">clique para abrir</small></button>
+      </div>
+
+      <div class="stage-top">
+        <div class="alert-pill" id="pill-alarm" hidden><span class="blip"></span><span id="pill-alarm-txt"></span></div>
+        <div class="info-pill" id="pill-state" hidden></div>
+      </div>
+
+      <div class="stage-hint" id="stage-hint">Arraste para girar · role para aproximar · clique na tampa para abrir/fechar</div>
+
+      <!-- modo demonstração: simula o ESP32 no navegador -->
+      <div class="demo" id="demo">
+        <button class="btn-demo" id="btn-demo" type="button" aria-pressed="false" aria-controls="demo-panel">Modo demonstração</button>
+        <div class="demo-panel" id="demo-panel" hidden>
+          <div class="demo-intro">
+            <b>Dispositivo simulado</b>
+            <p>ESP32 de mentirinha, sem Wokwi nem broker.</p>
+          </div>
+          <div class="demo-col">
+            <label class="demo-row" for="demo-peso"><span>Peso no prato</span><output id="demo-peso-out">0 g</output></label>
+            <input id="demo-peso" type="range" min="0" max="1000" step="5" value="0">
+          </div>
+          <div class="demo-col">
+            <label class="demo-row" for="demo-temp"><span>Temperatura</span><output id="demo-temp-out">24,5 °C</output></label>
+            <input id="demo-temp" type="range" min="10" max="45" step="0.5" value="24.5">
+          </div>
+          <div class="demo-col">
+            <label class="demo-row" for="demo-umid"><span>Umidade</span><output id="demo-umid-out">55 %</output></label>
+            <input id="demo-umid" type="range" min="20" max="95" step="1" value="55">
+          </div>
+          <div class="demo-actions">
+            <button type="button" id="demo-colocar">Colocar 250 g</button>
+            <button type="button" id="demo-retirar">Tirar o prato</button>
+            <button type="button" id="demo-esquentar">Esquentar / esfriar</button>
+            <button type="button" class="demo-exit" id="demo-sair">Voltar ao real</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage-bar">
+        <div class="chips" id="stage-food" role="group" aria-label="Alimento no prato">
+          <button type="button" data-food="0" aria-pressed="false"><span class="emoji">🍚</span><span class="lbl">Arroz</span></button>
+          <button type="button" data-food="1" aria-pressed="false"><span class="emoji">🍗</span><span class="lbl">Frango</span></button>
+          <button type="button" data-food="2" aria-pressed="false"><span class="emoji">🥚</span><span class="lbl">Ovo</span></button>
+        </div>
+        <div class="chips cams" id="stage-cam" role="group" aria-label="Câmera">
+          <button type="button" data-view="geral">Visão geral</button>
+          <button type="button" data-view="balanca">Balança</button>
+          <button type="button" data-view="tampa">Tampa</button>
+          <button type="button" data-view="meta">Meta</button>
+          <button type="button" data-view="ambiente">Ambiente</button>
+          <button type="button" id="btn-full" title="Tela cheia" aria-label="Tela cheia">⛶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Painel detalhado</h2>
+
+  <main class="grid">
+
+    <!-- PESO -->
+    <section class="card" id="card-peso">
+      <h2>Peso no prato</h2>
+      <div class="gauge-wrap">
+        <svg class="gauge" viewBox="0 0 120 72" role="img" aria-label="Medidor de peso">
+          <path class="gauge-track" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+          <path class="gauge-fill" id="peso-arc" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+          <line class="gauge-limit" id="peso-limit" x1="0" y1="0" x2="0" y2="0" visibility="hidden"/>
+        </svg>
+        <div class="gauge-read"><strong id="peso-valor">--</strong><span>g</span></div>
+      </div>
+      <p class="hint" id="peso-hint">Limite de porção: --</p>
+    </section>
+
+    <!-- CALORIAS -->
+    <section class="card" id="card-cal">
+      <h2>Calorias</h2>
+      <div class="metrics">
+        <div class="metric"><span class="label">No prato agora</span><strong id="cal-refeicao">--</strong><small>kcal</small></div>
+        <div class="metric"><span class="label">Total do dia</span><strong id="cal-dia">--</strong><small>kcal</small></div>
+      </div>
+      <div>
+        <div class="progress-head"><span>Meta diária: <b id="meta-valor">--</b> kcal</span><b id="meta-pct">--%</b></div>
+        <div class="bar" role="progressbar" aria-label="Progresso da meta diária"><div class="bar-fill" id="meta-fill"></div></div>
+        <p class="hint" id="meta-note">&nbsp;</p>
+      </div>
+      <form class="inline-form" id="form-meta">
+        <label for="meta-input" class="sr-only">Nova meta calórica (kcal)</label>
+        <input id="meta-input" type="number" min="100" max="10000" step="50" inputmode="numeric" placeholder="Nova meta (kcal)">
+        <button class="btn" type="submit">Definir meta</button>
+      </form>
+      <button class="btn danger-outline" id="btn-reset" type="button">Zerar calorias do dia</button>
+    </section>
+
+    <!-- ALIMENTO -->
+    <section class="card" id="card-alim">
+      <h2>Alimento no prato</h2>
+      <div class="segmented" id="food-seg" role="group" aria-label="Alimento">
+        <button type="button" data-food="0" aria-pressed="false"><span class="emoji">🍚</span>Arroz</button>
+        <button type="button" data-food="1" aria-pressed="false"><span class="emoji">🍗</span>Frango</button>
+        <button type="button" data-food="2" aria-pressed="false"><span class="emoji">🥚</span>Ovo</button>
+      </div>
+      <p class="hint">Escolha o alimento <b>antes</b> de colocar o prato na balança: as calorias entram no total do dia no momento em que o prato é colocado.</p>
+    </section>
+
+    <!-- TEMPERATURA -->
+    <section class="card" id="card-temp">
+      <h2>Temperatura do ambiente</h2>
+      <div class="gauge-wrap">
+        <svg class="gauge" viewBox="0 0 120 72" role="img" aria-label="Medidor de temperatura">
+          <path class="gauge-track" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+          <path class="gauge-fill" id="temp-arc" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+          <line class="gauge-limit" id="temp-limit" x1="0" y1="0" x2="0" y2="0" visibility="hidden"/>
+        </svg>
+        <div class="gauge-read"><strong id="temp-valor">--</strong><span>°C</span></div>
+      </div>
+      <p class="hint" id="temp-hint">Limite de segurança: --</p>
+    </section>
+
+    <!-- UMIDADE -->
+    <section class="card" id="card-umid">
+      <h2>Umidade do ambiente</h2>
+      <div class="gauge-wrap">
+        <svg class="gauge" viewBox="0 0 120 72" role="img" aria-label="Medidor de umidade">
+          <path class="gauge-track" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+          <path class="gauge-fill" id="umid-arc" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+        </svg>
+        <div class="gauge-read"><strong id="umid-valor">--</strong><span>%</span></div>
+      </div>
+      <p class="hint">Sensor DHT22 (simulado no Wokwi)</p>
+    </section>
+
+    <!-- ALARME -->
+    <section class="card" id="card-alarme">
+      <h2>Alarme automático</h2>
+      <div class="status-row">
+        <div class="alarm-dot" id="alarme-dot" data-state="unk"></div>
+        <div>
+          <div class="big" id="alarme-titulo">--</div>
+          <small class="muted" id="alarme-motivo">Aguardando o dispositivo…</small>
+        </div>
+      </div>
+      <p class="hint">Regra executada no ESP32: liga o buzzer e o LED quando a porção ou a temperatura passa do limite.</p>
+    </section>
+
+    <!-- HISTÓRICO -->
+    <section class="card" id="card-hist">
+      <h2>Histórico (desta sessão)</h2>
+      <div class="spark-grid">
+        <div>
+          <div class="spark-head"><span>Peso (g)</span><span class="muted" id="spark-peso-range">--</span></div>
+          <svg class="spark" id="spark-peso" viewBox="0 0 300 80" preserveAspectRatio="none" role="img" aria-label="Gráfico do peso"></svg>
+        </div>
+        <div>
+          <div class="spark-head"><span>Temperatura (°C)</span><span class="muted" id="spark-temp-range">--</span></div>
+          <svg class="spark" id="spark-temp" viewBox="0 0 300 80" preserveAspectRatio="none" role="img" aria-label="Gráfico da temperatura"></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAMPA -->
+    <section class="card" id="card-tampa">
+      <h2>Tampa do recipiente</h2>
+      <div class="status-row">
+        <div class="lid-icon" id="lid-icon" aria-hidden="true"><div class="lid"></div><div class="box"></div></div>
+        <div>
+          <div class="big" id="tampa-estado">--</div>
+          <small class="muted">Controle manual (servo motor)</small>
+        </div>
+      </div>
+      <button class="btn primary" id="btn-tampa" type="button">Abrir tampa</button>
+    </section>
+
+    <!-- MONITOR MQTT -->
+    <section class="card" id="card-log">
+      <div class="card-head">
+        <h2>Monitor MQTT</h2>
+        <div class="card-tools"><code id="base-topic"></code><button class="btn small" id="btn-clear-log" type="button">Limpar</button></div>
+      </div>
+      <ul class="log" id="log"></ul>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Three.js r128 (script clássico: funciona abrindo o arquivo direto do disco) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="document.write('\x3Cscript src=\x22https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js\x22\x3E\x3C/script\x3E')"></script>
+  <!-- Cliente MQTT (MQTT.js) — versão 5.x, via CDN -->
+  <script src="https://unpkg.com/mqtt@5/dist/mqtt.min.js"></script>
+  <script src="../Script/balanca3d/config.js"></script>
+  <script src="../Script/balanca3d/app.js"></script>
+  <script src="../Script/balanca3d/demo.js"></script>
+  <script src="../Script/balanca3d/twin3d.js"></script>
+</body>
+</html>

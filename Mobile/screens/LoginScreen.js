@@ -47,11 +47,25 @@ export default function LoginScreen({ navigation }) {
     try {
       setCarregando(true);
 
-      await apiService.login(emailNormalizado, senha);
+     console.log('ETAPA 1: Iniciando login');
 
-      // Confirma se o token foi realmente salvo.
-      const token = await apiService.getToken();
+  await Promise.race([
+  apiService.login(emailNormalizado, senha),
 
+  new Promise((_, reject) =>
+    setTimeout(() => {
+      reject(new Error(
+        'Tempo limite excedido. Não foi possível obter resposta do servidor.'
+      ));
+    }, 10000)
+  )
+]);
+
+  console.log('ETAPA 2: Login respondeu');
+
+  const token = await apiService.getToken();
+
+  console.log('ETAPA 3: Token encontrado?', !!token);
       if (!token) {
         setErro(
           'O servidor respondeu, mas o token de autenticação não foi encontrado. Verifique a resposta do backend.'

@@ -14,7 +14,7 @@ const USER_KEY = 'safebite_user';
 // dentro do FormData. Para uploads usamos XMLHttpRequest, que o React Native
 // ainda suporta. Devolve um objeto com a mesma interface usada pelo request().
 function enviarComXHR(url, { method, headers, body }) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {       
     const xhr = new XMLHttpRequest();
 
     xhr.open(method, url);
