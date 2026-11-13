@@ -1,152 +1,93 @@
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
-import {
-  NavigationContainer,
-} from '@react-navigation/native';
+import { AuthProvider, useAuth } from './src/AuthContext';
+import { cores } from './src/theme';
 
-import {
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import LoginScreen from './screens/LoginScreen';
-import CadastroScreen from './screens/CadastroScreen';
-import RestricoesScreen from './screens/RestricoesScreen';
-
-import HomeScreen from './screens/HomeScreen';
-import InstrucoesScreen from './screens/InstrucoesScreen';
-import ReceitasScreen from './screens/ReceitasScreen';
-import ReceitaDetalheScreen from './screens/ReceitaDetalheScreen';
-import PublicacoesScreen from './screens/PublicacoesScreen';
-import ReceitaFormularioScreen from './screens/ReceitaFormularioScreen';
-import PerfilScreen from './screens/PerfilScreen';
-import SuporteScreen from './screens/SuporteScreen';
-
-// NOVA TELA: BALANÇA NUTRICIONAL
-import BalancaScreen from './screens/Balanca';
-import DashboardScreen from './screens/DashboardScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import RecipesScreen from './src/screens/RecipesScreen';
+import RecipeDetailScreen from './src/screens/RecipeDetailScreen';
+import RecipeFormScreen from './src/screens/RecipeFormScreen';
+import MyRecipesScreen from './src/screens/MyRecipesScreen';
+import RestrictionsScreen from './src/screens/RestrictionsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import BalancaScreen from './src/screens/BalancaScreen';
+import DashboardScreen from './src/screens/DashboardScreen';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function App() {
-  const [carregando, setCarregando] = useState(true);
-  const [autenticado, setAutenticado] = useState(false);
+const ICONES = {
+  Receitas: 'restaurant-outline',
+  Minhas: 'book-outline',
+  Restricoes: 'shield-checkmark-outline',
+  Balanca: 'scale-outline',
+  Perfil: 'person-outline',
+};
 
-  useEffect(() => {
-    verificarAutenticacao();
-  }, []);
+function Abas() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerTitleAlign: 'center',
+        tabBarActiveTintColor: cores.primariaEscura,
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name={ICONES[route.name]} size={size} color={color} />
+        ),
+      })}
+    >
+      <Tab.Screen name="Receitas" component={RecipesScreen} />
+      <Tab.Screen name="Minhas" component={MyRecipesScreen} options={{ title: 'Minhas receitas' }} />
+      <Tab.Screen name="Restricoes" component={RestrictionsScreen} options={{ title: 'Restrições' }} />
+      <Tab.Screen name="Balanca" component={BalancaScreen} options={{ title: 'Balança', headerShown: false }} />
+      <Tab.Screen name="Perfil" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
+}
 
-  async function verificarAutenticacao() {
-    try {
-      const token = await AsyncStorage.getItem('safebite_token');
-
-      setAutenticado(!!token);
-    } catch (error) {
-      console.log('Erro ao verificar autenticação:', error);
-      setAutenticado(false);
-    } finally {
-      setCarregando(false);
-    }
-  }
+function Rotas() {
+  const { carregando, usuario } = useAuth();
 
   if (carregando) {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ActivityIndicator size="large" color="#F5A623" />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color={cores.primaria} />
       </View>
     );
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={autenticado ? 'Home' : 'Login'}
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-
-        {/* AUTENTICAÇÃO */}
-
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-        />
-
-        <Stack.Screen
-          name="Cadastro"
-          component={CadastroScreen}
-        />
-
-        <Stack.Screen
-          name="Restricoes"
-          component={RestricoesScreen}
-        />
-
-        {/* APLICAÇÃO */}
-
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-        />
-
-        <Stack.Screen
-          name="Instrucoes"
-          component={InstrucoesScreen}
-        />
-
-        <Stack.Screen
-          name="Receitas"
-          component={ReceitasScreen}
-        />
-
-        <Stack.Screen
-          name="ReceitaDetalhe"
-          component={ReceitaDetalheScreen}
-        />
-
-        <Stack.Screen
-          name="Publicacoes"
-          component={PublicacoesScreen}
-        />
-
-        <Stack.Screen
-          name="ReceitaFormulario"
-          component={ReceitaFormularioScreen}
-        />
-
-        <Stack.Screen
-          name="Perfil"
-          component={PerfilScreen}
-        />
-
-        <Stack.Screen
-          name="Suporte"
-          component={SuporteScreen}
-        />
-
-        {/* BALANÇA NUTRICIONAL */}
-
-        <Stack.Screen
-          name="Balanca"
-          component={BalancaScreen}
-        />
-
-        <Stack.Screen
-          name="Dashboard"
-          component={DashboardScreen}
-        />
-
+      <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+        {usuario ? (
+          <>
+            <Stack.Screen name="Abas" component={Abas} options={{ headerShown: false }} />
+            <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} options={{ title: 'Receita' }} />
+            <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="RecipeForm" component={RecipeFormScreen} options={{ title: 'Nova receita' }} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Register" component={RegisterScreen} options={{ title: 'Criar conta' }} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <StatusBar style="dark" />
+      <Rotas />
+    </AuthProvider>
   );
 }
