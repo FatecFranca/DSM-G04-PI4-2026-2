@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { connectDB } = require('./config/database'); // ← Mongoose
+const { connectDB } = require('./config/database');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const notFound = require('./middleware/notFound');
@@ -15,6 +15,36 @@ const swaggerSpec = require('./config/swagger');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// ============================================
+// LOGS DE DIAGNÓSTICO DO BACKEND
+// ============================================
+app.use((req, res, next) => {
+  const inicio = Date.now();
+
+  console.log('\n========== REQUISIÇÃO ==========');
+  console.log('[BACKEND] Método:', req.method);
+  console.log('[BACKEND] Rota:', req.originalUrl);
+  console.log('[BACKEND] IP:', req.ip);
+  console.log('[BACKEND] Horário:', new Date().toISOString());
+
+  res.on('finish', () => {
+    console.log('[BACKEND] Status:', res.statusCode);
+    console.log('[BACKEND] Tempo:', Date.now() - inicio, 'ms');
+    console.log('================================\n');
+  });
+
+  res.on('close', () => {
+    if (!res.writableFinished) {
+      console.warn('[BACKEND] Conexão encerrada antes da resposta');
+    }
+  });
+
+  next();
+});
+
+// Middlewares de segurança
+// Continue com o restante do seu código...
 
 // Middlewares de segurança
 app.use(
